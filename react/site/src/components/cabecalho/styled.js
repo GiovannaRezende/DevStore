@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Conteudo = styled.div `
+const Container = styled.div `
     display: flex;  
     flex-direction: row;
     background-color: #ffffff;
@@ -60,3 +60,5 @@ const Conteudo = styled.div `
     cursor: pointer;
 }
 `
+
+export { Container }

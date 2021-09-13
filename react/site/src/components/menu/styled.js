@@ -59,3 +59,5 @@ const Container = styled.div`
     box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
 }
 `
+
+export { Container }
