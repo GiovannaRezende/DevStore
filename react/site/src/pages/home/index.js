@@ -37,6 +37,7 @@ export default function Index() {
     }, [])
 
     async function inserir() {
+        loading.current.continuousStart();
         if(idAlterando === 0) {
         let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
         if(r.erro)
@@ -56,6 +57,7 @@ export default function Index() {
             setEstoque('');
             setPrecopor('');
             setIdAlterando(0);
+            loading.current.complete();
         }
         limparCampos();
         listar();
@@ -74,13 +76,35 @@ export default function Index() {
     }
 
     async function remover(id) {
-        let r = await api.remover(id)
-        toast.success('Produto removido!')
-
-        listar();
+        loading.current.continuousStart();
+        confirmAlert({
+            title: 'Remover produto',
+            message: `Tem certeza que deseja remover o produto ${id}?`,
+            buttons: [
+                {
+                    label: 'Sim',
+                    onClick: async() => {
+                        let r = await api.remover(id);
+                        if(r.erro)
+                            toast.error(`${r.erro}`);
+                        else {
+                            toast.success('Produto removido!');
+                            listar();
+                            
+                        }
+                    }
+                },
+                {
+                    label:'Não'
+                }
+            ]
+        
+        })
+        loading.current.complete();
     }
 
     async function alterar(item){
+        loading.current.continuousStart();
 
         setProduto(item.nm_produto);
         setCategoria(item.ds_categoria);
@@ -91,6 +115,8 @@ export default function Index() {
         setEstoque(item.qtd_estoque);
         setPrecopor(item.img_produto);
         setIdAlterando(item.id_produto);
+
+        loading.current.complete();
     }
 
     return (
