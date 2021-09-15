@@ -58,6 +58,11 @@ const Container = styled.div`
     font: 600 1em Roboto;
     box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
 }
+
+.seta-baixo {
+    margin-left: 1em;
+}
 `
+
 
 export { Container }

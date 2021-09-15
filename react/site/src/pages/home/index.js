@@ -27,7 +27,6 @@ export default function Index() {
     const [descricao, setDescricao] = useState('');
     const [estoque, setEstoque] = useState('');
     const [imagem, setImagem] = useState('');
-
     const [idAlterando, setIdAlterando] = useState(0);
     const loading = useRef(null);
 
@@ -41,18 +40,22 @@ export default function Index() {
        loading.current.continuousStart();
 
         if(idAlterando === 0) {
+
+            if(estoque === NaN)
+            return toast.error('O campo estoque aceita apenas números!'); 
+            loading.current.complete();
             
             if (!produto || produto.replace === '' )
-            return toast.error('O campo aluno deve ser preenchido!'); 
+            return toast.error('O campo produto deve ser preenchido!'); 
             loading.current.complete();
        
             if ( produto.length < 4)
-            return toast.error('O campo nome deve ser maior que 4 caracteres!'); 
+            return toast.error('O campo produto deve ser maior que 4 caracteres!'); 
             loading.current.complete();
        
-            //f (chamada <= 0 )
-            //return toast.error('O número de chamada deve ser positivo e maior que 0!'); 
-            //loading.current.complete();
+            if ( precode <= 0  || precopor <= 0  || estoque <= 0 )
+            return toast.error('Os campos de preço e estoque precisam ser maiores que 0!'); 
+            loading.current.complete();
        
             //if (!chamada || chamada.replace === '')
             //return toast.error('O campo chamada é obrigatório!');
@@ -77,9 +80,10 @@ export default function Index() {
         if(r.erro) {
             toast.error(`${r.erro}`); 
             loading.current.complete();
+            console.log(r);
         }
         else {
-            toast.success('Aluno inserido!');
+            toast.success('Produto inserido!');
             loading.current.complete();
         }
     } else {
@@ -87,7 +91,7 @@ export default function Index() {
         if(r.erro) 
             toast.error(`${r.erro}`); 
         else {
-            toast.success('Aluno alterado!');
+            toast.success('Produto alterado!');
             loading.current.complete();
         }
 
@@ -111,8 +115,8 @@ export default function Index() {
     async function remover(id) {
         loading.current.continuousStart();
         confirmAlert({
-            title: 'Remover aluno',
-            message: `Tem certeza que deseja remover o aluno ${id}?`,
+            title: 'Remover produto',
+            message: `Tem certeza que deseja remover o produto ${id}?`,
             buttons: [
                 {
                     label: 'Sim',
@@ -121,7 +125,7 @@ export default function Index() {
                         if(r.erro)
                             toast.error(`${r.erro}`);
                         else {
-                            toast.success('Aluno removido!');
+                            toast.success('Produto removido!');
                             listar();
                             
                         }
@@ -163,82 +167,82 @@ export default function Index() {
             <Menu/>
                 <Conteudo> 
                     <Cabecalho/>
-            <div class="novo-produto">
-                    <div class="cab-novo-prod">
-                        <div class="barra"><img src="/assets/images/barra.svg" alt=""/></div>
-                        <div class="titulo1">{idAlterando === 0 ? "Novo Produto" : "Alterando produto " + idAlterando}</div>
+                <div className="novo-produto">
+                    <div className="cab-novo-prod">
+                        <div className="barra"><img src="/assets/images/barra.svg" alt=""/></div>
+                        <div className="titulo1">{idAlterando === 0 ? "Novo Aluno" : "Alterando aluno " + idAlterando}</div>
                     </div>
-                    <div class="corpo-novo-prod">
-                        <div class="inputs1">
-                            <div class="forms1">
-                                <div class="form-produto">
-                                    <div class="produto">Produto</div>
+                    <div className="corpo-novo-prod">
+                        <div className="inputs1">
+                            <div className="forms1">
+                                <div className="form-produto">
+                                    <div className="produto">Produto</div>
                                     <input type="text" value={produto} onChange={e => setProduto(e.target.value)}/>
                                 </div>
-                                <div class="form-preco-de">
-                                    <div class="preco-de">Preço DE:</div>
+                                <div className="form-preco-de">
+                                    <div className="preco-de">Preço DE:</div>
                                     <input type="text" value={precode} onChange={e => setPrecode(e.target.value)}/>
                                 </div>
                             </div>
-                                <div class="forms2">
-                                    <div class="form-categoria">
-                                        <div class="categoria">Categoria:</div>
+                                <div className="forms2">
+                                    <div className="form-categoria">
+                                        <div className="categoria">Categoria:</div>
                                         <input type="text" value={categoria} onChange={e => setCategoria(e.target.value)}/>
                                     </div>
-                                    <div class="form-preco-por">
-                                        <div class="preco-por">Preço POR:</div>
+                                    <div className="form-preco-por">
+                                        <div className="preco-por">Preço POR:</div>
                                         <input type="text" value={precopor} onChange={e => setPrecopor(e.target.value)}/>
                                     </div>
                                 </div>
-                                <div class="forms3">
-                                    <div class="form-avaliacao">
-                                        <div class="avaliacao">Avaliação:</div>
+                                <div className="forms3">
+                                    <div className="form-avaliacao">
+                                        <div className="avaliacao">Avaliação:</div>
                                         <input type="text" value={avaliacao} onChange={e => setAvaliacao(e.target.value)}/>
                                     </div>
-                                    <div class="form-estoque">
+                                    <div className="form-estoque">
                                         <div class="estoque">Estoque:</div>
                                         <input type="text" value={estoque} onChange={e => setEstoque(e.target.value)}/>
                                     </div>
                                 </div>
                         </div>
                         </div>
-                        <div class="inputs2">
-                            <div class="forms4">
-                                <div class="link-img">Link Imagem:</div>
+                        <div className="inputs2">
+                            <div className="forms4">
+                                <div className="link-img">Link Imagem:</div>
                                 <input type="text"/>
                             </div>
-                            <div class="forms5">
-                                <div class="descricao">Descrição:</div>
+                            <div className="forms5">
+                                <div className="descricao">Descrição:</div>
                                 <textarea style={{"resize": "none", "cols": "69", "rows": "10"}}></textarea>
-                                <div class="cadastrar"><button onClick={inserir}>{idAlterando === 0 ? "Cadastrar" : "Alterar"}   </button></div>
+                                <div className="cadastrar"><button onClick={inserir}>{idAlterando === 0 ? "Cadastrar" : "Alterar"} </button></div>
                             </div>
                         </div>
                     </div>
                
-                <div class="cadastrados">
-                    <div class="cab-cadastrados">
-                        <div class="barra"><img src="/assets/images/barra.svg" alt=""/></div>
-                        <div class="titulo2">Produtos Cadastrados</div>
+                <div className="cadastrados">
+                    <div className="cab-cadastrados">
+                        <div className="barra"><img src="/assets/images/barra.svg" alt=""/></div>
+                        <div className="titulo2">Produtos Cadastrados</div>
                     </div>
                     <table>
                         <thead>
-                            <tr>
-                                <th></th>
+                            <tr className="linha-principal">
+                                <th>Imagem</th>
                                 <th>ID</th>
                                 <th>Produto</th>
                                 <th>Categoria</th>
                                 <th>Preço</th>
                                 <th>Estoque</th>
-                                <th class="botoes"></th>
-                                <th class="botoes"></th>
+                                <th className="botoes"></th>
+                                <th className="botoes"></th>
                             </tr>
                         </thead>
                         <tbody>
                         {produtos.map((item, i) =>
                         <tr className={i % 2 === 0 ? "linha-branca" : "linha-cinza"}>
                             <td>{item.img_produto}</td>
-                            <td>{item.id_produto} </td>
-                            <td title={item.nm_produto}>{item.nm_produto != null && item.nm_produto.length >=25 ? item.nm_produto.substr(0, 25) + "..." : item.nm_aluno }</td>
+                            <td>{item.id_produto}</td>
+                            <td title={item.nm_produto}>{item.nm_produto != null && item.nm_produto.length >=25 ? item.nm_produto.substr(0, 25) + "..." : item.nm_produto }</td>
                             <td>{item.ds_categoria}</td>
                             <td>{item.vl_preco_por}</td>
                             <td>{item.qtd_estoque}</td>

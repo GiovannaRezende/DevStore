@@ -4,7 +4,7 @@ export default function Index(){
     return (
         <Container> 
             <div class="cab-esquerda">
-                <div class="perfil"><img src="/assets/images/perfil.svg" alt=""/></div>
+                <div class="perfil"><img src="/assets/images/perfil (3).svg" alt=""/></div>
                 <div class="circulo"><img src="/assets/images/circulo.svg" alt=""/></div>
                 <div class="nome">Olá, <span>Bruno Oliveira</span></div>
             </div>

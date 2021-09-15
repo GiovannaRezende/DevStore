@@ -176,15 +176,15 @@ table {
 }
 
 .linha-principal {
-    background-color: #6CC3DF;;
+    background-color: #6CC3DF;
     color: white;
     font: 500 .8em Roboto;
     height: 4em;
     align-items: center;
 }
 
-.linha-branca td{
-    background-color: #ffffff;
+.linha-branca td {
+    background-color: #f5f5f5;
     color: #6D6868;
     font: 500 .8em Roboto;
     text-align: center;
@@ -192,7 +192,7 @@ table {
 }
 
 .linha-cinza td {
-    background-color: #f5f5f5;
+    background-color: #fff;
     color: #6D6868;
     font: 500 .8em Roboto;
     text-align: center;
@@ -236,12 +236,14 @@ tr:hover {
     visibility: visible;
     }
 }
+
 `
 
 const Container = styled.div `
     display: flex;
     flex-direction: row;
     height: 140vh;
+    background-color: #f5f5f5;
 `
 
 export { Container, Conteudo }
