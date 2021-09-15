@@ -10,7 +10,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import LoadingBar from 'react-top-loading-bar';
 
-import Api from '../../service/api'
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
+import Api from '../../../src/service/api'
 const api = new Api();
 
 export default function Index() {
@@ -24,7 +27,9 @@ export default function Index() {
     const [descricao, setDescricao] = useState('');
     const [estoque, setEstoque] = useState('');
     const [imagem, setImagem] = useState('');
+
     const [idAlterando, setIdAlterando] = useState(0);
+    const loading = useRef(null);
 
     async function listar() {
         let r = await api.listar();
@@ -32,33 +37,61 @@ export default function Index() {
         listar();
     }
 
-    useEffect(() => {
-        listar();
-    }, [])
-
     async function inserir() {
-        loading.current.continuousStart();
-        if(idAlterando === 0) {
-        let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
-        if(r.erro)
-        toast.error(r.erro)
-        else
-            toast.success('Produto inserido!');
-        } else {
-            let r = await api.alterar(idAlterando, produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem)
-            toast.success('Produto alterado!');
+       loading.current.continuousStart();
 
-            setProduto('');
-            setCategoria('');
-            setPrecode('');
-            setPrecopor('');
-            setAvaliacao('');
-            setDescricao('');
-            setEstoque('');
-            setPrecopor('');
-            setIdAlterando(0);
+        if(idAlterando === 0) {
+            
+            if (!produto || produto.replace === '' )
+            return toast.error('O campo aluno deve ser preenchido!'); 
+            loading.current.complete();
+       
+            if ( produto.length < 4)
+            return toast.error('O campo nome deve ser maior que 4 caracteres!'); 
+            loading.current.complete();
+       
+            //f (chamada <= 0 )
+            //return toast.error('O número de chamada deve ser positivo e maior que 0!'); 
+            //loading.current.complete();
+       
+            //if (!chamada || chamada.replace === '')
+            //return toast.error('O campo chamada é obrigatório!');
+            //loading.current.complete();
+            
+            ///if(chamada !== parseInt(chamada))
+            ///return toast.error('O campo chamada aceita apenas números!');
+            ///loading.current.complete();
+
+            //if(chamada === NaN)
+            //return toast.error('O campo chamada aceita apenas números!');
+
+            //if(curso.length < 4)
+            //return toast.error('O campo curso deve ser maior que 4 caracteres!');
+            //loading.current.complete();
+
+            //if(turma.length < 4)
+            //return toast.error('O campo turma deve ser maior que 4 caracteres!');
+            //loading.current.complete();
+
+        let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
+        if(r.erro) {
+            toast.error(`${r.erro}`); 
             loading.current.complete();
         }
+        else {
+            toast.success('Aluno inserido!');
+            loading.current.complete();
+        }
+    } else {
+        let r = await api.alterar(idAlterando, produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
+        if(r.erro) 
+            toast.error(`${r.erro}`); 
+        else {
+            toast.success('Aluno alterado!');
+            loading.current.complete();
+        }
+
+    }
         limparCampos();
         listar();
     }
@@ -71,15 +104,15 @@ export default function Index() {
         setAvaliacao('');
         setDescricao('');
         setEstoque('');
-        setPrecopor('');
+        setImagem('');
         setIdAlterando(0);
     }
 
     async function remover(id) {
         loading.current.continuousStart();
         confirmAlert({
-            title: 'Remover produto',
-            message: `Tem certeza que deseja remover o produto ${id}?`,
+            title: 'Remover aluno',
+            message: `Tem certeza que deseja remover o aluno ${id}?`,
             buttons: [
                 {
                     label: 'Sim',
@@ -88,7 +121,7 @@ export default function Index() {
                         if(r.erro)
                             toast.error(`${r.erro}`);
                         else {
-                            toast.success('Produto removido!');
+                            toast.success('Aluno removido!');
                             listar();
                             
                         }
@@ -100,8 +133,8 @@ export default function Index() {
             ]
         
         })
-        loading.current.complete();
     }
+    
 
     async function alterar(item){
         loading.current.continuousStart();
@@ -113,11 +146,15 @@ export default function Index() {
         setAvaliacao(item.vl_avaliacao);
         setDescricao(item.ds_descricao);
         setEstoque(item.qtd_estoque);
-        setPrecopor(item.img_produto);
-        setIdAlterando(item.id_produto);
-
-        loading.current.complete();
+        setImagem(item.img_produto);
+        setIdAlterando(0);
+        
     }
+    
+    useEffect(() => {
+        listar();
+    }, [])
+
 
     return (
         <Container>
@@ -126,7 +163,7 @@ export default function Index() {
             <Menu/>
                 <Conteudo> 
                     <Cabecalho/>
-                <div class="novo-produto">
+            <div class="novo-produto">
                     <div class="cab-novo-prod">
                         <div class="barra"><img src="/assets/images/barra.svg" alt=""/></div>
                         <div class="titulo1">{idAlterando === 0 ? "Novo Produto" : "Alterando produto " + idAlterando}</div>
@@ -168,12 +205,12 @@ export default function Index() {
                         <div class="inputs2">
                             <div class="forms4">
                                 <div class="link-img">Link Imagem:</div>
-                                <input type="text" value={imagem} onChange={e => setImagem(e.target.value)}/>
+                                <input type="text"/>
                             </div>
                             <div class="forms5">
                                 <div class="descricao">Descrição:</div>
-                                <textarea style={{"resize": "none", "cols":"69", "rows":"10"}} value={descricao} onChange={e => setDescricao(e.target.value)}></textarea>
-                                <div class="cadastrar"><button onClick={inserir}>{idAlterando === 0 ? "Cadastrar" : "Alterar"}</button></div>
+                                <textarea style={{"resize": "none", "cols": "69", "rows": "10"}}></textarea>
+                                <div class="cadastrar"><button onClick={inserir}>{idAlterando === 0 ? "Cadastrar" : "Alterar"}   </button></div>
                             </div>
                         </div>
                     </div>
@@ -185,7 +222,7 @@ export default function Index() {
                     </div>
                     <table>
                         <thead>
-                            <tr class="linha-principal">
+                            <tr>
                                 <th></th>
                                 <th>ID</th>
                                 <th>Produto</th>
@@ -197,19 +234,19 @@ export default function Index() {
                             </tr>
                         </thead>
                         <tbody>
-                            {produtos.map((item, i) =>
-                            <tr className={i % 2 === 0 ? "linha-branca" : "linha-cinza"}>
-                                <td></td>
-                                <td>{item.id_produto}</td>
-                                <td title={item.nm_produto}>{item.nm_produto != null && item.nm_produto.length >=25 ? item.nm_produto.substr(0, 25) + "..." : item.nm_produto }</td>
-                                <td>{item.ds_categoria}</td>
-                                <td>{item.vl_preco_por}</td>
-                                <td>{item.qtd_estoque}</td>
-                                <td class="botoes"><button onClick={() => alterar(item)}><img src="/assets/images/editar.svg" alt=""/></button></td>
-                                <td class="botoes" onClick={() => remover(item.id_produto)}><button><img src="/assets/images/remover.svg" alt=""/></button></td>
-                            </tr>
-                            )}
-                        </tbody>
+                        {produtos.map((item, i) =>
+                        <tr className={i % 2 === 0 ? "linha-branca" : "linha-cinza"}>
+                            <td>{item.img_produto}</td>
+                            <td>{item.id_produto} </td>
+                            <td title={item.nm_produto}>{item.nm_produto != null && item.nm_produto.length >=25 ? item.nm_produto.substr(0, 25) + "..." : item.nm_aluno }</td>
+                            <td>{item.ds_categoria}</td>
+                            <td>{item.vl_preco_por}</td>
+                            <td>{item.qtd_estoque}</td>
+                            <td className="botoes"><button onClick={() => alterar(item)}><img src="/assets/images/editar.svg" alt=""/></button> </td>
+                            <td className="botoes"> <button onClick={() => remover(item.id_produto)}><img src="/assets/images/remover.svg" alt=""/></button></td>
+                         </tr>
+                        )}
+                    </tbody>
                     </table>
                 </div>
             </Conteudo>

@@ -5,22 +5,22 @@ const api = new axios.create({
 
 export default class Api {
     async listar() {
-        let r = await api.get('/produtos');
+        let r = await api.get('/matricula');
         return r.data;
     }
 
-    async inserir(produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem, ativo, inclusao) {
-        let r = await api.post('/produtos', { produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem, ativo, inclusao } );
+    async inserir(aluno, chamada, curso, turma) {
+        let r = await api.post('/matricula', { aluno, chamada, curso, turma } );
         return r.data;
 }
 
-    async alterar(id,  produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem, ativo, inclusao) {
-        let r = await api.put('/produtos/'+ id, { produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem, ativo, inclusao } );
+    async alterar(id, aluno, chamada, curso, turma) {
+        let r = await api.put('/matricula/'+ id, { aluno, chamada, curso, turma } );
         return r.data;
     }
 
     async remover (id) {
-        let r = await api.delete('/produtos/' + id);
+        let r = await api.delete('/matricula/' + id);
         return r.data;
     }
 }
