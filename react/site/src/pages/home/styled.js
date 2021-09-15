@@ -14,6 +14,7 @@ const Conteudo = styled.div `
 .cab-novo-prod {
     display: flex;
     flex-direction: row;
+    height: auto;
 }
 
 .barra {
@@ -174,7 +175,8 @@ textarea{
 
 table {
     border-collapse: collapse; 
-    width: 50em;
+    width: 60em;
+    align-self: center;
 }
 
 .linha-principal {
@@ -240,13 +242,16 @@ tr:hover {
     }
 }
 
+.imagem img {
+    width: 4em;
+    height: 3em;
+}
 
 `
 
 const Container = styled.div `
     display: flex;
     flex-direction: row;
-    height: 140vh;
     background-color: #f5f5f5;
 `
 

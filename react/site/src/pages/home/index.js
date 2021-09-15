@@ -45,43 +45,28 @@ export default function Index() {
             return toast.error('O campo estoque aceita apenas números!'); 
             loading.current.complete();
             
-            if (!produto || produto.replace === '' )
-            return toast.error('O campo produto deve ser preenchido!'); 
-            loading.current.complete();
-       
-            if ( produto.length < 4)
-            return toast.error('O campo produto deve ser maior que 4 caracteres!'); 
-            loading.current.complete();
-       
-            if ( precode <= 0  || precopor <= 0  || estoque <= 0 )
-            return toast.error('Os campos de preço e estoque precisam ser maiores que 0!'); 
+            if ( produto.replace === '' || produto.length < 4)
+            return toast.error('O campo produto deve ser preenchido e ter pelo menos 4 caracteres!'); 
             loading.current.complete();
 
-            if (!categoria || categoria.replace === '')
-            return toast.error('O campo avaliação é obrigatório!');
+            if (categoria.replace === '' || categoria.length < 4)
+            return toast.error('O campo categoria é obrigatório e deve possuir mais de 4 caracteres!');
             loading.current.complete();
 
-            if (!imagem || imagem.replace === '')
-            return toast.error('O campo avaliação é obrigatório!');
+            if (avaliacao === null || avaliacao <= 0)
+            return toast.error('O campo avalição deve ser maior que 0!'); 
             loading.current.complete();
 
-            if (!descricao || descricao.replace === '')
-            return toast.error('O campo avaliação é obrigatório!');
-            loading.current.complete();
-            
-            ///if(chamada !== parseInt(chamada))
-            ///return toast.error('O campo chamada aceita apenas números!');
-            ///loading.current.complete();
-
-            //if(chamada === NaN)
-            //return toast.error('O campo chamada aceita apenas números!');
-
-            //if(curso.length < 4)
-            //return toast.error('O campo curso deve ser maior que 4 caracteres!');
+            //if (imagem === '')
+            //return toast.error('O campo imagem deve ser preenchido!'); 
             //loading.current.complete();
+       
+            if (precode <= 0  || precopor <= 0  || estoque <= 0 )
+            return toast.error('Os campos de preços e estoque precisam ser maiores que 0!'); 
+            loading.current.complete();
 
-            //if(turma.length < 4)
-            //return toast.error('O campo turma deve ser maior que 4 caracteres!');
+            //if (descricao.replace === '' || descricao.length < 10)
+            //return toast.error('O campo descrição deve ser preenchido e ter mais que 10 caracteres!'); 
             //loading.current.complete();
 
         let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
@@ -159,7 +144,7 @@ export default function Index() {
         setDescricao(item.ds_descricao);
         setEstoque(item.qtd_estoque);
         setImagem(item.img_produto);
-        setIdAlterando(0);
+        setIdAlterando(item.id_produto);
         
     }
     
@@ -248,7 +233,7 @@ export default function Index() {
                         <tbody>
                         {produtos.map((item, i) =>
                         <tr className={i % 2 === 0 ? "linha-branca" : "linha-cinza"}>
-                            <td>{item.img_produto}</td>
+                            <td className="imagem"><img src={item.img_produto} alt=""/> </td>
                             <td>{item.id_produto}</td>
                             <td title={item.nm_produto}>{ item.nm_produto != null && item.nm_produto.length >= 25 ? item.nm_produto.substr(0, 25) + "..." : item.nm_produto }</td>
                             <td>{item.ds_categoria}</td>
