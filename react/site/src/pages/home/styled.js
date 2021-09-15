@@ -1,16 +1,16 @@
 import styled from 'styled-components'
 
 const Conteudo = styled.div `
+.novo-produto {
     display: flex;
     flex-direction: column;
-    display: flex;  
-    flex-direction: column;
-    background-color: #ffffff;
+    background-color: #fff;
     padding: 1.5em;
     margin: 2em 1.8em;
     box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
     align-items: space-between;
-
+    width: 66em;
+}
 .cab-novo-prod {
     display: flex;
     flex-direction: row;
@@ -151,12 +151,13 @@ textarea{
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    padding: 2em;
+    padding: 2em 2em 2em 1em;
     margin: .3em 1.9em;
     box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
     overflow: hidden;
     overflow-y: scroll;
     max-height: 40em;
+    width: 66em;
  
 }
 
@@ -173,6 +174,7 @@ textarea{
 
 table {
     border-collapse: collapse; 
+    width: 50em;
 }
 
 .linha-principal {
@@ -181,6 +183,7 @@ table {
     font: 500 .8em Roboto;
     height: 4em;
     align-items: center;
+    width: 3em;
 }
 
 .linha-branca td {
@@ -236,6 +239,7 @@ tr:hover {
     visibility: visible;
     }
 }
+
 
 `
 

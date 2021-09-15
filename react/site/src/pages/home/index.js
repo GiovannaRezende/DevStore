@@ -222,7 +222,7 @@ export default function Index() {
                             <div className="forms5">
                                 <div className="descricao">Descrição:</div>
                                 <textarea style={{"resize": "none", "cols": "69", "rows": "10"}}></textarea>
-                                <div className="cadastrar"><button onClick={inserir}>{idAlterando === 0 ? "Cadastrar" : "Alterar"} </button></div>
+                                <div className="cadastrar"><button onClick={inserir}> {idAlterando === 0 ? "Cadastrar" : "Alterar"} </button></div>
                             </div>
                         </div>
                     </div>
@@ -235,7 +235,7 @@ export default function Index() {
                     <table>
                         <thead>
                             <tr className="linha-principal">
-                                <th>Imagem</th>
+                                <th className="imagem">Imagem</th>
                                 <th>ID</th>
                                 <th>Produto</th>
                                 <th>Categoria</th>

@@ -8,7 +8,7 @@ const Container = styled.div `
     justify-content: space-between;
     margin: 0em 0em 1em 0em;
     box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
-    width: 77.9vw;
+    width: 82.2vw;
 
 .cab-esquerda {
     display: flex;
@@ -18,8 +18,8 @@ const Container = styled.div `
 
 .circulo img {
     position:absolute; 
-    top: 15px; 
-    left: 19.2em;
+    top: 16px; 
+    left: 18em;
 }
 
 .perfil {
