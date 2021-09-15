@@ -56,10 +56,18 @@ export default function Index() {
             if ( precode <= 0  || precopor <= 0  || estoque <= 0 )
             return toast.error('Os campos de preço e estoque precisam ser maiores que 0!'); 
             loading.current.complete();
-       
-            //if (!chamada || chamada.replace === '')
-            //return toast.error('O campo chamada é obrigatório!');
-            //loading.current.complete();
+
+            if (!categoria || categoria.replace === '')
+            return toast.error('O campo avaliação é obrigatório!');
+            loading.current.complete();
+
+            if (!imagem || imagem.replace === '')
+            return toast.error('O campo avaliação é obrigatório!');
+            loading.current.complete();
+
+            if (!descricao || descricao.replace === '')
+            return toast.error('O campo avaliação é obrigatório!');
+            loading.current.complete();
             
             ///if(chamada !== parseInt(chamada))
             ///return toast.error('O campo chamada aceita apenas números!');
@@ -170,7 +178,7 @@ export default function Index() {
                 <div className="novo-produto">
                     <div className="cab-novo-prod">
                         <div className="barra"><img src="/assets/images/barra.svg" alt=""/></div>
-                        <div className="titulo1">{idAlterando === 0 ? "Novo Aluno" : "Alterando aluno " + idAlterando}</div>
+                        <div className="titulo1">{idAlterando === 0 ? "Novo Produto" : "Alterando produto " + idAlterando}</div>
                     </div>
                     <div className="corpo-novo-prod">
                         <div className="inputs1">
@@ -242,7 +250,7 @@ export default function Index() {
                         <tr className={i % 2 === 0 ? "linha-branca" : "linha-cinza"}>
                             <td>{item.img_produto}</td>
                             <td>{item.id_produto}</td>
-                            <td title={item.nm_produto}>{item.nm_produto != null && item.nm_produto.length >=25 ? item.nm_produto.substr(0, 25) + "..." : item.nm_produto }</td>
+                            <td title={item.nm_produto}>{ item.nm_produto != null && item.nm_produto.length >= 25 ? item.nm_produto.substr(0, 25) + "..." : item.nm_produto }</td>
                             <td>{item.ds_categoria}</td>
                             <td>{item.vl_preco_por}</td>
                             <td>{item.qtd_estoque}</td>
