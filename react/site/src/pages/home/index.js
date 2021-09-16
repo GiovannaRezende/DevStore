@@ -40,58 +40,33 @@ export default function Index() {
        loading.current.continuousStart();
 
         if(idAlterando === 0) {
+            let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
 
-            if(estoque === NaN)
-            return toast.error('O campo estoque aceita apenas números!'); 
-            loading.current.complete();
-            
-            if ( produto.replace === '' || produto.length < 4)
-            return toast.error('O campo produto deve ser preenchido e ter pelo menos 4 caracteres!'); 
-            loading.current.complete();
+            if(r.erro) {
+                toast.error(`${r.erro}`); 
+                loading.current.complete();
+                console.log(r);
+            }
 
-            if (categoria.replace === '' || categoria.length < 4)
-            return toast.error('O campo categoria é obrigatório e deve possuir mais de 4 caracteres!');
-            loading.current.complete();
-
-            if (avaliacao === null || avaliacao <= 0)
-            return toast.error('O campo avalição deve ser maior que 0!'); 
-            loading.current.complete();
-
-            //if (imagem === '')
-            //return toast.error('O campo imagem deve ser preenchido!'); 
-            //loading.current.complete();
-       
-            if (precode <= 0  || precopor <= 0  || estoque <= 0 )
-            return toast.error('Os campos de preços e estoque precisam ser maiores que 0!'); 
-            loading.current.complete();
-
-            //if (descricao.replace === '' || descricao.length < 10)
-            //return toast.error('O campo descrição deve ser preenchido e ter mais que 10 caracteres!'); 
-            //loading.current.complete();
-
-        let r = await api.inserir(produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
-        if(r.erro) {
-            toast.error(`${r.erro}`); 
-            loading.current.complete();
-            console.log(r);
+            else {
+                toast.success('Produto inserido!');
+                loading.current.complete();
+            }
         }
-        else {
-            toast.success('Produto inserido!');
-            loading.current.complete();
-        }
-    } else {
+        
+     else {
         let r = await api.alterar(idAlterando, produto, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
         if(r.erro) 
             toast.error(`${r.erro}`); 
         else {
             toast.success('Produto alterado!');
-            loading.current.complete();
+            limparCampos();
         }
-
+        
     }
-        limparCampos();
         listar();
     }
+
 
     function limparCampos() {
         setProduto('');
@@ -202,11 +177,11 @@ export default function Index() {
                         <div className="inputs2">
                             <div className="forms4">
                                 <div className="link-img">Link Imagem:</div>
-                                <input type="text"/>
+                                <input type="text" value={imagem} onChange={e => setImagem(e.target.value)}/>
                             </div>
                             <div className="forms5">
                                 <div className="descricao">Descrição:</div>
-                                <textarea style={{"resize": "none", "cols": "69", "rows": "10"}}></textarea>
+                                <textarea style={{"resize": "none"}} rows="8" cols="69" ></textarea>
                                 <div className="cadastrar"><button onClick={inserir}> {idAlterando === 0 ? "Cadastrar" : "Alterar"} </button></div>
                             </div>
                         </div>
