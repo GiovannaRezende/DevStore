@@ -181,7 +181,7 @@ export default function Index() {
                             </div>
                             <div className="forms5">
                                 <div className="descricao">Descrição:</div>
-                                <textarea style={{"resize": "none"}} rows="8" cols="69" ></textarea>
+                                <textarea value={descricao} onChange={e => setDescricao(e.target.value)} style={{"resize": "none"}} rows="8" cols="69" ></textarea>
                                 <div className="cadastrar"><button onClick={inserir}> {idAlterando === 0 ? "Cadastrar" : "Alterar"} </button></div>
                             </div>
                         </div>
