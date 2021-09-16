@@ -8,7 +8,7 @@ const Container = styled.div `
     justify-content: space-between;
     margin: 0em 0em 1em 0em;
     box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
-    width: 82.2vw;
+    width: 81.7vw;
 
 .cab-esquerda {
     display: flex;

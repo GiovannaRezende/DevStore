@@ -156,8 +156,6 @@ textarea{
     margin: .3em 1.9em;
     box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
     overflow: hidden;
-    overflow-y: scroll;
-    max-height: 40em;
     width: 66em;
  
 }
@@ -210,14 +208,6 @@ table {
     font: 500 .8em Roboto;
     text-align: center;
     height: 4em;
-}
-
-.botoes button {
-    background-color: #565656;
-    border: none;
-    border-radius: 2em;
-    padding: .7em .5em;
-    cursor: pointer;
 }
 
 .botoes button {
