@@ -195,7 +195,7 @@ export default function Index() {
                     <table>
                         <thead>
                             <tr className="linha-principal">
-                                <th className="imagem">Imagem</th>
+                                <th className="imagem"></th>
                                 <th>ID</th>
                                 <th>Produto</th>
                                 <th>Categoria</th>
