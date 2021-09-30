@@ -2,6 +2,8 @@ import Menu from '../../components/menu';
 import Cabecalho from '../../components/cabecalho';
 
 import { Container, Conteudo } from './styled'
+import { ProfileName } from '../../components/cabecalho/styled';
+import { Buttons } from '../../components/cabecalho/styled';
 
 import { useState, useEffect, useRef } from 'react';
 
@@ -134,7 +136,10 @@ export default function Index() {
             <LoadingBar color="purple" ref={loading}/>
             <Menu/>
                 <Conteudo> 
-                    <Cabecalho/>
+                    <Cabecalho>
+                        <ProfileName></ProfileName>
+                        <Buttons></Buttons>
+                    </Cabecalho>
                 <div className="novo-produto">
                     <div className="cab-novo-prod">
                         <div className="barra"><img src="/assets/images/barra.svg" alt=""/></div>

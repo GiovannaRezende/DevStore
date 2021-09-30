@@ -9,12 +9,12 @@ const Container = styled.div `
     margin: 0em 0em 1em 0em;
     box-shadow: 0px 0px 4px 1px rgba(186, 186, 186, 0.25);
     width: 81.7vw;
+`
 
-.cab-esquerda {
+const ProfileName = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-}
 
 .circulo img {
     position:absolute; 
@@ -35,12 +35,12 @@ const Container = styled.div `
     font: 800 1em Roboto;
     color: #615858;
 }
+`
 
-.cab-direita {
+const Buttons = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-}
 
 .recarregar button {
     background-color: #119FDC;
@@ -55,10 +55,10 @@ const Container = styled.div `
     background-color: #119FDC;
     border-radius: 3em;
     border: none;
-    padding: .7em .7em;
+    padding: .6em .7em;
     margin-right: .3em;
     cursor: pointer;
 }
 `
 
-export { Container }
+export { Container, ProfileName, Buttons }
